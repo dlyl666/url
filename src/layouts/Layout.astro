@@ -1,0 +1,78 @@
+---
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<title>{title}</title>
+		<meta name="description" content="Make your links less readable and more fun at loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo.ng" />
+	</head>
+	<body>
+		<slot />
+		<footer>
+			<span>Made by <a href="https://nick.winans.io" target="_blank">Nick Winans</a>. See the <a href="https://github.com/Nicell/loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo.ng" target="_blank">source code</a>.</span>
+		</footer>
+	</body>
+</html>
+<style>
+	:root {
+		--font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
+		--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+
+		--color-text: hsl(12, 5%, 4%);
+		--color-bg: #E0E0E0;
+		--color-border: hsl(17, 24%, 90%);
+		--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
+	}
+
+	html {
+		font-family: system-ui, sans-serif;
+		font-size: var(--font-size-base);
+		color: var(--color-text);
+		background-color: var(--color-bg);
+	}
+
+	body {
+		margin: 0;
+		padding-bottom: 2rem;
+	}
+
+	:global(h1) {
+		font-size: var(--font-size-xl);
+	}
+
+	:global(input) {
+		all: unset;
+		font-size: var(--font-size-lg);
+	}
+
+	:global(button) {
+		all: unset;
+		font-size: var(--font-size-lg);
+	}
+
+	footer {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0.5rem;
+		background: #eee;
+		position: fixed;
+		bottom: 0;
+		font-size: var(--font-size-base);
+	}
+
+	a {
+		color: #0091ea;
+	}
+</style>
