@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="URL Legthener: l62.ng resolver">
+  <main>
+    <script is:inline>
+      var bases = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/', '='];
+
+      var binary = window.location.pathname.substring(2, window.location.pathname.length - 2); // Retrieve oOs from path
+      binary = binary.replaceAll('o', '0').replaceAll('O', '1'); // Replace oOs with 0s 1s
+      var yardstick = new RegExp(`.{9}`, 'g'); // Create regex to match 9-bit chunks
+      var pieces = binary.match(yardstick); // Create array of 9-bit chunks
+      var accumulated = (pieces.length * 9);
+      var modulo = binary.length % accumulated;
+      if (modulo) pieces.push(binary.slice(accumulated)); // If binary is not a multiple of 9, add the remaining bits to the end
+
+      for (var i = 0; i < pieces.length; i++) {
+        pieces[i] = bases[parseInt(pieces[i], 2)]; // Convert each 9-bit chunk to a base64 character
+      }
+
+      try {
+        var decoded = atob(pieces.join('')); // Decode the base64 string
+        var urled = new URL(decoded);
+				if (urled.protocol !== 'https:' && urled.protocol !== 'http:') {
+					throw new Error('Invalid protocol');
+				}
+        window.location.href = decoded;
+      } catch {}
+    </script>
+    <h1 class="text-gradient">404</h1>
+    <a href="/">← Go Home</a>
+  </main>
+</Layout>
+
+<style>
+	h1 {
+		margin: 2rem 0;
+		word-break: break-all;
+	}
+
+	main {
+		margin: auto;
+		padding: 1em;
+		max-width: 60ch;
+    text-align: center;
+	}
+
+	.text-gradient {
+		font-weight: 900;
+		background-image: var(--astro-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 100% 200%;
+		background-position-y: 100%;
+		border-radius: 0.4rem;
+		animation: pulse 4s ease-in-out infinite;
+    text-align: center;
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			background-position-y: 0%;
+		}
+		50% {
+			background-position-y: 80%;
+		}
+	}
+
+  a {
+    color: #0091ea;
+		font-size: 1.5rem;
+  }
+</style>
